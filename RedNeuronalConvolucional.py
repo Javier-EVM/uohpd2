@@ -6,7 +6,7 @@ import numpy as np
 
 x,y = loadData('house-votes-84')
 #x,y = loadData('spambase')
-
+x,y = loadData("Credit-approval")
 
 #entradas importantes
 n_entrada= x.shape[1]

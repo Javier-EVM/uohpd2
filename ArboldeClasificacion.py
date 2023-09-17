@@ -3,9 +3,9 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import accuracy_score
 from dataset import loadData
 
-x,y = loadData('house-votes-84')
+#x,y = loadData('house-votes-84')
 #x,y = loadData('spambase')
-
+x,y = loadData("Credit-approval")
 #Se dividen los datos en Entrenamiento y testeo
 X_train, X_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
 print(X_train)
