@@ -44,6 +44,11 @@ def oneHot(x):
     return x_enc
 
 def loadCreditapproval():
+    """
+    Ejemplo de linea de datos
+    b,34.83,4,u,g,d,bb,12.5,t,f,0,t,g,?,0,-
+    
+    """
     df = pd.read_csv('./data/credit-approval/crx.data', header=None, delimiter=',')
     #Elimina datos nulos
     for i in range(0,16):
