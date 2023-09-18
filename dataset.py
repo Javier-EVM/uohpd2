@@ -28,6 +28,11 @@ def loadData(dataname):
     if dataname == "Credit-approval":
         x,y = loadCreditapproval()
         return x, y
+    
+    if dataname == "Ionosphere":
+        x,y = loadIonosphere()
+        return x, y
+    
 
 
 
@@ -42,6 +47,27 @@ def oneHot(x):
         lb.fit(np.unique(x[:,j])) #lo fitea con todas las filas de la columna j
         x_enc = np.concatenate((x_enc, lb.transform(x[:,j])), axis=1) #concatena x_enc con la binarizacion de la columna j, en el axis 1 == columna
     return x_enc
+
+def loadIonosphere():
+    """
+    Ejemplo de linea de datos
+    1,0,0.99539,-0.05889,0.85243,0.02306,0.83398,-0.37708,1,0.03760,0.85243,-0.17755,0.59755,
+    -0.44945,0.60536,-0.38223,0.84356,-0.38542,0.58212,-0.32192,0.56971,-0.29674,0.36946,
+    -0.47357,0.56811,-0.51171,0.41078,-0.46168,0.21266,-0.34090,0.42267,-0.54487,0.18641,-0.45300,
+    g
+    
+    """
+    df = pd.read_csv('./data/Ionosphere/ionosphere.data', header=None, delimiter=',')
+    #Se normaliza
+    scaler = StandardScaler()
+    data = df.loc[:, 0:33]
+    scaler.fit(data)
+    df.loc[:, 0:33] = scaler.fit_transform(data)
+    #La categoria se pasa a binario
+    df_et = df[34]
+    y = df_et.replace({"g": 1, "b": 0})
+    x, y = df.loc[:, 0:33], y #df.loc[:, 0:56], : toma todas las filas, 0:56 toma las columnas de 0 a 56, contando 56
+    return np.array(x), np.array(y)
 
 def loadCreditapproval():
     """
@@ -180,4 +206,6 @@ def loadMonks1():
 #print(f"El tamaño del arreglo es: ",x.shape)
 
 x,y = loadData("Credit-approval")
+x,y = loadData("Ionosphere")
 print(x)
+print(y)

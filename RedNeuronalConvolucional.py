@@ -7,7 +7,7 @@ import numpy as np
 x,y = loadData('house-votes-84')
 #x,y = loadData('spambase')
 x,y = loadData("Credit-approval")
-
+x,y = loadData("Ionosphere")
 #entradas importantes
 n_entrada= x.shape[1]
 epoch = 50
@@ -61,4 +61,5 @@ plt.xlabel("Epoch", size = "14")
 plt.legend()
 plt.show()
 
+print(history.history["accuracy"][-1])
 #loss desviacion entre lo predecido y las categorias reales
