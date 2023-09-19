@@ -8,6 +8,7 @@ x,y = loadData('house-votes-84')
 #x,y = loadData('spambase')
 x,y = loadData("Credit-approval")
 x,y = loadData("Ionosphere")
+x,y = loadData("Adult")
 #entradas importantes
 n_entrada= x.shape[1]
 epoch = 50

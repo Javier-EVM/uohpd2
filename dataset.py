@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 from sklearn.preprocessing import StandardScaler
 from sklearn.preprocessing import LabelBinarizer
+from sklearn.preprocessing import LabelEncoder
 
 def loadData(dataname):
     # balance-scale
@@ -33,6 +34,10 @@ def loadData(dataname):
         x,y = loadIonosphere()
         return x, y
     
+    if dataname == "Adult":
+        x,y = loadAdult()
+        return x, y
+    
 
 
 
@@ -47,6 +52,43 @@ def oneHot(x):
         lb.fit(np.unique(x[:,j])) #lo fitea con todas las filas de la columna j
         x_enc = np.concatenate((x_enc, lb.transform(x[:,j])), axis=1) #concatena x_enc con la binarizacion de la columna j, en el axis 1 == columna
     return x_enc
+
+def loadAdult():
+    df = pd.read_csv("./data/adult/adult.csv")
+    for col in df.columns:
+        df = df[df[col] != ' ?']
+    #for col in df.columns:
+    #    if " ?" in df[col].unique():
+    #        df = df[df[col] != " ?"]
+    #    else:
+    #        continue
+    dfx = df.iloc[:, :-1]  # Todas las columnas excepto la última como características
+    dfy = df.iloc[:, -1]   # Última columna como etiquetas
+    
+    col_num = dfx.select_dtypes(include=['int64', 'float64']).columns
+    col_cat = dfx.select_dtypes(include=['object','category']).columns
+    '''
+    Se estandarizan las variables numéricas
+    '''
+    sc = StandardScaler()
+    
+    dfx[col_num] = sc.fit_transform(dfx[col_num])
+    '''
+    Se codifican las columnas categóricas usando one-hot
+    '''
+    dfx = pd.get_dummies(dfx, columns=col_cat, prefix=col_cat)
+    #print(f'Datos atributos:\n\n{dfx}')
+    '''
+    Se transforma dfx en array
+    '''
+    #print(dfx)
+    dfx = np.array(dfx)
+    #print(dfx)
+    '''
+    Se codifica la última columna a 0s y 1s
+    '''
+    dfy = LabelEncoder().fit_transform(dfy.values)
+    return dfx,dfy
 
 def loadIonosphere():
     """
@@ -205,7 +247,10 @@ def loadMonks1():
 #print(np.zeros((x.shape[0], 0)))
 #print(f"El tamaño del arreglo es: ",x.shape)
 
-x,y = loadData("Credit-approval")
-x,y = loadData("Ionosphere")
-print(x)
-print(y)
+#x,y = loadData("Credit-approval")
+#x,y = loadData("Ionosphere")
+#x,y = loadData("Adult")
+#print(x)
+#print(y)
+#print(len(y))
+#print(x.shape)
