@@ -14,6 +14,7 @@ print(X_train)
 #Se instancia el clasificador
 clf = DecisionTreeClassifier()
 
+print(clf.get_params())
 #Se entrena el clasificador
 clf.fit(X_train, y_train)
 
