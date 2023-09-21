@@ -7,7 +7,10 @@ from dataset import loadData
 #x,y = loadData('spambase')
 #x,y = loadData("Credit-approval")
 x,y = loadData("Adult")
-
+x,y = loadData("Connectionist-bench")
+x,y = loadData("Breast-cancer")
+x,y = loadData("Pima-diabetes")
+x,y = loadData("Banknote")
 #Se dividen los datos en Entrenamiento y testeo
 X_train, X_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
 print(X_train)

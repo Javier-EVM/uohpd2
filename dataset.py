@@ -37,7 +37,29 @@ def loadData(dataname):
     if dataname == "Adult":
         x,y = loadAdult()
         return x, y
+    if dataname == "Musk-2":
+        x,y = loadMusk2()
+        return x, y
     
+    if dataname == "Connectionist-bench":
+        x,y = loadConnectionistB()
+        return x, y
+    
+    if dataname == "Breast-cancer":
+        x,y = loadBreastCancer()
+        return x, y
+    
+    if dataname == "Pima-diabetes":
+        x,y = loadPimaDiabetes()
+        return x,y
+    
+    if dataname == "Statlog":
+        x,y = loadStatlog()
+        return x,y
+    
+    if dataname == "Banknote":
+        x,y = loadBanknote()
+        return x,y
 
 
 
@@ -52,6 +74,115 @@ def oneHot(x):
         lb.fit(np.unique(x[:,j])) #lo fitea con todas las filas de la columna j
         x_enc = np.concatenate((x_enc, lb.transform(x[:,j])), axis=1) #concatena x_enc con la binarizacion de la columna j, en el axis 1 == columna
     return x_enc
+
+
+def loadBanknote():
+    df = pd.read_csv("./data/banknote/data.txt")
+    dfx = df.iloc[:, :-1]  # Todas las columnas excepto la última como características
+    dfy = df.iloc[:, -1]   # Última columna como etiquetas
+    sc = StandardScaler()   
+    dfx = sc.fit_transform(dfx)
+    '''
+    Se transforma dfx en array
+    '''
+    dfx = np.array(dfx)
+    return dfx , dfy
+
+def loadStatlog():
+    '''
+    Mensaje:
+
+    El código ha sido utilizado con los datos
+    .data-numeric del archivo extraído directamente del UCI
+    '''
+    df = pd.read_csv("./data/statlog/german_num.data-numeric", header=None,delim_whitespace=True)# delimiter=',')
+    dfx = df.iloc[:, :-1]  # Todas las columnas excepto la última como características
+    dfy = df.iloc[:, -1]   # Última columna como etiquetas
+    dfy_map = {1:1,2:0} 
+    '''
+    se hace un proceso similar a replace, pero con una idea de "mapeo" con .map() 
+    usando el diccionario dfy_map:
+    - al 1 se le asigna el 1 y al 2 se le asigna el 0
+    '''
+    dfy = dfy.map(dfy_map)
+    #Al ser todos los atributos de tipo numérico, solamente queda estandarizar los datos:
+    
+    sc = StandardScaler() 
+    dfx = sc.fit_transform(dfx)
+    return dfx, dfy
+
+def loadPimaDiabetes():
+    df = pd.read_csv("./data/Pima-diabetes/pima_diabetes.csv")#, header=None,delim_whitespace=True)# delimiter=',')
+    df
+    dfx = df.iloc[:, :-1]  # Todas las columnas excepto la última como características
+    dfy = df.iloc[:, -1]   # Última columna como etiquetas
+    sc = StandardScaler() 
+    dfx = sc.fit_transform(dfx)
+    return dfx, dfy
+
+def loadBreastCancer():
+    df = pd.read_csv("./data/breast-cancer/brca.csv")
+    dfx = df.iloc[:, :-1]  # Todas las columnas excepto la última como características
+    dfy = df.iloc[:, -1]   # Última columna como etiquetas
+    '''
+    Se estandarizan las variables numéricas
+    '''
+    sc = StandardScaler()
+    
+    dfx = sc.fit_transform(dfx)
+    '''
+    Se transforma dfx en array
+    '''
+    dfx = np.array(dfx)
+    '''
+    Se codifica la última columna a 0s y 1s
+    '''
+    dfy = LabelEncoder().fit_transform(dfy.values)
+    return dfx, dfy
+
+def loadConnectionistB():
+    df = pd.read_csv("./data/Connectionist-Bench/sonar_data.csv")
+    dfx = df.iloc[:, :-1]  # Todas las columnas excepto la última como características
+    dfy = df.iloc[:, -1]   # Última columna como etiquetas
+    sc = StandardScaler()   
+    dfx = sc.fit_transform(dfx)
+    '''
+    Se transforma dfx en array
+    '''
+    dfx = np.array(dfx)
+    dfy = LabelEncoder().fit_transform(dfy.values)
+    return dfx , dfy
+
+def loadMusk2():
+    df = pd.read_csv("./data/musk2/musk2.data", header=None, delimiter=',')
+    '''
+    La columna 1 no tiene sentido ingresarla porque tiene la misma cantidad de datos distintos
+    que el largo del dataframe
+    '''
+    df = df.drop(columns = 1)
+    dfx = df.iloc[:, :-1]  # Todas las columnas excepto la última como características
+    
+    col_num = dfx.select_dtypes(include=['int64', 'float64']).columns
+    col_cat = dfx.select_dtypes(include=['object','category']).columns
+    '''
+    Se estandarizan las variables numéricas
+    '''
+    sc = StandardScaler()
+    
+    dfx[col_num] = sc.fit_transform(dfx[col_num])
+    '''
+    get_dummies transforma solamente a las columnas de tipo string,
+    las columnas numéricas las deja de lado
+    '''
+    dfx = pd.get_dummies(dfx, columns=col_cat, prefix=col_cat,drop_first = True)
+    #print(f'Datos atributos:\n\n{dfx}')
+    '''
+    Se transforma dfx en array
+    '''
+    dfx = np.array(dfx)
+    dfy = df.iloc[:, -1]   # Última columna como etiquetas
+    
+    return dfx , dfy
 
 def loadAdult():
     df = pd.read_csv("./data/adult/adult.csv")
@@ -250,7 +381,19 @@ def loadMonks1():
 #x,y = loadData("Credit-approval")
 #x,y = loadData("Ionosphere")
 #x,y = loadData("Adult")
-#print(x)
-#print(y)
-#print(len(y))
-#print(x.shape)
+
+
+
+x,y = loadData("Musk-2") #pendiente
+
+#x,y = loadData("Connectionist-bench")
+#x,y = loadData("Breast-cancer")
+#x,y = loadData("Pima-diabetes")
+
+x,y = loadData("Statlog") #pendiente
+#x,y = loadData("Banknote")
+
+print(x)
+print(y)
+print(len(y))
+print(x.shape)
