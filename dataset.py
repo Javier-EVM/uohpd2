@@ -384,7 +384,7 @@ def loadMonks1():
 
 
 
-x,y = loadData("Musk-2") #pendiente
+#x,y = loadData("Musk-2") 
 
 #x,y = loadData("Connectionist-bench")
 #x,y = loadData("Breast-cancer")
