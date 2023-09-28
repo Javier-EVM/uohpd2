@@ -19,14 +19,14 @@ X_train, X_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_
 
 
 
-# Define el espacio de búsqueda de hiperparámetros
+#Se define el espacio de busqueda de hiperparametros
 param_dist = {
-    'criterion': ['gini', 'entropy'],  # Tipo de criterio
-    'splitter': ['best', 'random'],    # Estrategia de división
-    'max_depth': np.arange(1, 11),    # Profundidad máxima del árbol
-    'min_samples_split': np.arange(2, 11),  # Mínimo de muestras para dividir un nodo
-    'min_samples_leaf': np.arange(1, 11)  # Mínimo de muestras en una hoja
-    #'ccp_alpha': list(np.linspace(0.0, 0.2, 100))
+    'criterion': ['gini', 'entropy'],  #Tipo de criterio de separacion
+    'splitter': ['best', 'random'],    #Estrategia de división
+    'max_depth': np.arange(1, 11),    #Profundidad máxima del árbol
+    'min_samples_split': np.arange(2, 11),  #Minimo de instancias en un nodo interno para que se permita dividirse
+    'min_samples_leaf': np.arange(1, 11)  #Minimo de instancias en un nodo hoja n para que el split del padre(n)
+    #ocurra
 }
 
 # Crea un clasificador de árbol de decisión
@@ -35,16 +35,26 @@ print(clf.get_params())
 # Crea un objeto RandomizedSearchCV
 random_search = RandomizedSearchCV(clf, param_distributions=param_dist, n_iter=100, cv=5, random_state=42, scoring='accuracy')
 
-# Supongamos que tienes datos de entrenamiento (X_train, y_train)
-# Realiza la búsqueda aleatoria en los datos de entrenamiento
+
+#Se realiza la búsqueda aleatoria en los datos de entrenamiento
 random_search.fit(X_train, y_train)
 print(random_search.get_params())
 
 # Obtén los resultados de la búsqueda y ordénalos por precisión en orden descendente
 results = random_search.cv_results_
+
+#print(results['mean_test_score'])
+#ordena por mean_test_score para luego tomar la lista desde el mas alto al más bajo
 indices = np.argsort(results['mean_test_score'])[::-1]
 
+print(indices)
+
 # Muestra el "top 10" de los mejores hiperparámetros y sus puntuaciones de precisión
-top_10_params = [(results['params'][i], results['mean_test_score'][i]) for i in indices[:10]]
-for i, (params, score) in enumerate(top_10_params, 1):
+top_10 = []
+for i in indices[:10]:
+    top_10.append((results['params'][i], results['mean_test_score'][i]))
+
+
+
+for i, (params, score) in enumerate(top_10):
     print(f"Top {i}: Precisión = {score:.4f}, Hiperparámetros = {params}")
