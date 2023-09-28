@@ -60,7 +60,10 @@ def loadData(dataname):
     if dataname == "Banknote":
         x,y = loadBanknote()
         return x,y
-
+    
+    if dataname == "Bank-marketing":
+        x,y = loadBankMarketing()
+        return x,y
 
 
 
@@ -75,6 +78,32 @@ def oneHot(x):
         x_enc = np.concatenate((x_enc, lb.transform(x[:,j])), axis=1) #concatena x_enc con la binarizacion de la columna j, en el axis 1 == columna
     return x_enc
 
+
+def loadBankMarketing():
+    df = pd.read_csv("./data/bankmarketing/bank.csv", delimiter=';')
+    dfx = df.iloc[:, :-1]  # Todas las columnas excepto la última como características
+    
+    col_num = dfx.select_dtypes(include=['int64', 'float64']).columns
+    col_cat = dfx.select_dtypes(include=['object','category']).columns
+    '''
+    Se estandarizan las variables numéricas
+    '''
+    sc = StandardScaler()
+    
+    dfx[col_num] = sc.fit_transform(dfx[col_num])
+    '''
+    get_dummies transforma solamente a las columnas de tipo string,
+    las columnas numéricas las deja de lado
+    '''
+    dfx = pd.get_dummies(dfx, columns=col_cat, prefix=col_cat,drop_first = True)
+    #print(f'Datos atributos:\n\n{dfx}')
+    '''
+    Se transforma dfx en array
+    '''
+    dfx = np.array(dfx)
+    dfy = df.iloc[:, -1]   # Última columna como etiquetas
+    dfy = LabelEncoder().fit_transform(dfy.values)
+    return dfx , dfy
 
 def loadBanknote():
     df = pd.read_csv("./data/banknote/data.txt")
@@ -390,10 +419,12 @@ def loadMonks1():
 #x,y = loadData("Breast-cancer")
 #x,y = loadData("Pima-diabetes")
 
-x,y = loadData("Statlog") #pendiente
+#x,y = loadData("Statlog") #pendiente
 #x,y = loadData("Banknote")
 
-print(x)
-print(y)
-print(len(y))
-print(x.shape)
+#x,y = loadData("Bank-marketing")
+#Pruebas de tamaño
+#print(x)
+#print(y)
+#print(len(y))
+#print(x.shape)
