@@ -390,10 +390,10 @@ def loadMonks1():
 #x,y = loadData("Breast-cancer")
 #x,y = loadData("Pima-diabetes")
 
-x,y = loadData("Statlog") #pendiente
+#x,y = loadData("Statlog") #pendiente
 #x,y = loadData("Banknote")
 
-print(x)
-print(y)
-print(len(y))
-print(x.shape)
+#print(x)
+#print(y)
+#print(len(y))
+#print(x.shape)

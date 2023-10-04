@@ -3,6 +3,7 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import accuracy_score
 
 def useClassifier(classifier,x,y,size = 0.2):
+
     if classifier == "Arbol":
         a_in,a_out,model = classifierTree(x,y,size)
         return a_in,a_out,model
