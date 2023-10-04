@@ -39,6 +39,7 @@ random_search = RandomizedSearchCV(clf, param_distributions=param_dist, n_iter=1
 
 #Se realiza la búsqueda aleatoria en los datos de entrenamiento
 random_search.fit(X_train, y_train)
+print(random_search.get_params())
 
 # Obtén los resultados de la búsqueda y ordénalos por precisión en orden descendente
 results = random_search.cv_results_
