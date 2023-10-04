@@ -13,11 +13,25 @@ def classifierLogisticRegression(x, y, samp_size=0.2, params=None, accuracy_soli
     sam_size: valor de tamaño de muestra para prueba del clasificador, por defecto tiene valor 0.2
     params: recibe de entrada un diccionario con los parámetros en interés del clasificador
             y una lista de los valores a probar respectivamente.
-            Hay una posibilidad de un diccionario por defecto por nombre 'param_defecto', que su valor está dado por
+            Hay 3 posibilidades de diccionarios por defecto por nombre 'param_defecto1',
+            'param_defecto2' y 'param_defecto3' donde sus valores están dados por
 
-            -penalty : ['l1', 'l2', 'elasticnet', None]
+            param_defecto1:
+            -penalty : ['l2', None]
             -tol : [1e-4,1e-5,1e-6,1e-7]
-            -solver : ['lbfgs', 'liblinear', 'newton-cg', 'newton-cholesky', 'sag', 'saga']
+            -solver : ['lbfgs', 'newton-cg', 'newton-cholesky', 'sag', 'saga']
+            -max_iter: [1e2,1e3,1e4,1e5,1e6,1e7]
+
+            param_defecto2:
+            -penalty : ['l2']
+            -tol : [1e-4,1e-5,1e-6,1e-7]
+            -solver : ['lbfgs', 'liblinear, 'newton-cg', 'newton-cholesky', 'sag', 'saga'] (TODOS)
+            -max_iter: [1e2,1e3,1e4,1e5,1e6,1e7]
+
+            param_defecto3:
+            -penalty : ['l2']
+            -tol : [1e-4,1e-5,1e-6,1e-7]
+            -solver : ['liblinear, 'saga']
             -max_iter: [1e2,1e3,1e4,1e5,1e6,1e7]
     ----------------------------------------------------------------------------------------------------------------------
     accuracy_solicitado: valor de accuracy deseado por el usuario, recibe valores tipo "float" de entre 0 y 1,
@@ -41,15 +55,44 @@ def classifierLogisticRegression(x, y, samp_size=0.2, params=None, accuracy_soli
     if params is None:
         #Se entrena Regresión Logística por defecto, sin parámetros
         log_reg = LogisticRegression()
-    elif params == 'param_defecto':
+    elif params == 'param_defecto1':
         #Se realiza Randomized Search para buscar hiperparámetros con el diccionario por defecto
-        diccionario_params = {
-            "penalty" : ['l1', 'l2', 'elasticnet', None],
+        defecto = {
+            "penalty" : ['l2', None],
+            "tol" : [1e-4,1e-5,1e-6,1e-7],
+            "solver" : ['lbfgs', 'newton-cg', 'newton-cholesky', 'sag', 'saga'],
+            "max_iter": [100,1000,10000,100000]
+            }
+        
+        random_search = RandomizedSearchCV(estimator=LogisticRegression(), param_distributions=defecto, n_iter=10, scoring='accuracy', cv=5, random_state=42)
+        
+        random_search.fit(X_train, y_train)
+        log_reg = random_search.best_estimator_
+    elif params == 'param_defecto2':
+        #Se realiza Randomized Search para buscar hiperparámetros con el diccionario por defecto
+
+        defecto = {
+            "penalty" : ['l2'],
             "tol" : [1e-4,1e-5,1e-6,1e-7],
             "solver" : ['lbfgs', 'liblinear', 'newton-cg', 'newton-cholesky', 'sag', 'saga'],
             "max_iter": [100,1000,10000,100000]
             }
-        random_search = RandomizedSearchCV(estimator=LogisticRegression(), param_distributions=diccionario_params, n_iter=10, scoring='accuracy', cv=5, random_state=42)
+        
+        random_search = RandomizedSearchCV(estimator=LogisticRegression(), param_distributions=defecto, n_iter=10, scoring='accuracy', cv=5, random_state=42)
+        
+        random_search.fit(X_train, y_train)
+        log_reg = random_search.best_estimator_
+    elif params == 'param_defecto3':
+        #Se realiza Randomized Search para buscar hiperparámetros con el diccionario por defecto
+
+        defecto = {
+            "penalty" : ['l1', 'l2'],
+            "tol" : [1e-4,1e-5,1e-6,1e-7],
+            "solver" : ['liblinear', 'saga'],
+            "max_iter": [100,1000,10000,100000]
+            }
+        
+        random_search = RandomizedSearchCV(estimator=LogisticRegression(), param_distributions=defecto, n_iter=10, scoring='accuracy', cv=5, random_state=42)
         
         random_search.fit(X_train, y_train)
         log_reg = random_search.best_estimator_
@@ -73,4 +116,8 @@ def classifierLogisticRegression(x, y, samp_size=0.2, params=None, accuracy_soli
         return accuracy_in, accuracy_out, parametros_final, log_reg
     else:
         print(f'No se ha llegado al accuracy {accuracy_solicitado}, el mejor valor es encontrado por medio de Random Search es:')
-        return accuracy_in,accuracy_out, parametros_final, log_reg
+    
+    
+    print(f'accuracy in: {accuracy_in}\n\naccuracy out: {accuracy_out}\n\nparámetros finales: {parametros_final}')
+    
+    return accuracy_in, accuracy_out, parametros_final, log_reg
