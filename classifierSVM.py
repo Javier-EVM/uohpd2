@@ -54,8 +54,8 @@ def classifierSVM(x, y, samp_size, params, accuracy_solicitado):
         diccionario_params = {
             'kernel': ['linear', 'rbf', 'poly'],
             'C': [0.1, 1, 10, 100],
-            'gamma': [0.001, 0.01, 0.1, 1],
-            'degree': [2, 3, 4, 5]}
+            'gamma': [ 0.01, 0.1, 1],
+            'degree': [2, 3]}
         random_search = RandomizedSearchCV(estimator=SVC(), param_distributions=diccionario_params, n_iter=10, scoring='accuracy', cv=5, random_state=42)
         random_search.fit(X_train, y_train)
         svm = random_search.best_estimator_

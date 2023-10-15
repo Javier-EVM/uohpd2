@@ -68,7 +68,7 @@ def classifierLogisticRegression(x, y, samp_size=0.2, params=None, accuracy_soli
         
         random_search.fit(X_train, y_train)
         log_reg = random_search.best_estimator_
-    elif params == 'param_defecto2':
+    elif params == 'param_defecto':
         #Se realiza Randomized Search para buscar hiperparámetros con el diccionario por defecto
 
         defecto = {
