@@ -73,9 +73,9 @@ def classifierLogisticRegression(x, y, samp_size=0.2, params=None, accuracy_soli
 
         defecto = {
             "penalty" : ['l2'],
-            "tol" : [1e-4,1e-5,1e-6,1e-7],
+            "tol" : [1e-4,1e-5],
             "solver" : ['lbfgs', 'liblinear', 'newton-cg', 'newton-cholesky', 'sag', 'saga'],
-            "max_iter": [100,1000,10000,100000]
+            "max_iter": [10,50,80]
             }
         
         random_search = RandomizedSearchCV(estimator=LogisticRegression(), param_distributions=defecto, n_iter=10, scoring='accuracy', cv=5, random_state=42)

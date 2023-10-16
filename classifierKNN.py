@@ -41,10 +41,10 @@ def classifierKNN(x, y, samp_size=0.2, params=None, accuracy_solicitado=0.9):
     elif params == 'param_defecto':
         diccionario_params = {
             'weights' : ['uniform', 'distance'],
-            'algorithm' : ['auto', 'ball_tree', 'kd_tree', 'brute'],
-            'p': [1,2,3,4,5]
+            'algorithm' : ['auto', 'ball_tree', 'kd_tree'],
+            'p': [1,2]
               }
-        random_search = RandomizedSearchCV(estimator=KNeighborsClassifier(), param_distributions=diccionario_params, n_iter=10, scoring='accuracy', cv=5, random_state=42)
+        random_search = RandomizedSearchCV(estimator=KNeighborsClassifier(), param_distributions=diccionario_params, n_iter=3, scoring='accuracy', cv=2, random_state=42)
         random_search.fit(X_train, y_train)
         knn = random_search.best_estimator_
     else:

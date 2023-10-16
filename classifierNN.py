@@ -28,16 +28,16 @@ def classifierNeuralNetwork(x, y, size, params):
     elif params == 'param_defecto':
         #Define el espacio de búsqueda de hiperparámetros
         param_dist = {
-            'hidden_layer_sizes': [(10, 10), (20, 20), (30, 30)],
+            'hidden_layer_sizes': [(10, 10), (20, 20)],
             'activation': ['relu', 'tanh', 'logistic'],
-            'alpha': [0.001, 0.01, 0.1],
+            'alpha': [ 0.01, 0.1],
         }
 
         #Crea un clasificador de red neuronal
-        clf = MLPClassifier(max_iter=500, random_state=42)
+        clf = MLPClassifier(max_iter=50, random_state=42)
 
         #Crea un objeto RandomizedSearchCV
-        random_search = RandomizedSearchCV(clf, param_distributions=param_dist, n_iter=20, cv=5, random_state=42, scoring='accuracy')
+        random_search = RandomizedSearchCV(clf, param_distributions=param_dist, n_iter=10, cv=2, random_state=42, scoring='accuracy')
 
         #Realiza la búsqueda aleatoria en los datos de entrenamiento
         random_search.fit(X_train, y_train)

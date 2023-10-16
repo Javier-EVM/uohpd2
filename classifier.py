@@ -14,6 +14,7 @@ def useClassifier(classifier, x ,y ,size = 0.2, params=None, accuracy_solicitado
         tiempo = f-i
         print(f'\n\nAccuracy in: {round(a_in,3)}\n\nAccuracy out: {round(a_out,3)}\n\nParámetros finales: {model_params}\n\nTiempo: {tiempo}\n\n\n')
         return a_in,a_out,model_params,model,tiempo
+    
     if classifier == "NN":
         i = time.time()
         a_in,a_out,model,model_params = classifierNeuralNetwork(x, y, size, params)
@@ -21,6 +22,7 @@ def useClassifier(classifier, x ,y ,size = 0.2, params=None, accuracy_solicitado
         tiempo = f-i
         print(f'\n\nAccuracy in: {round(a_in,3)}\n\nAccuracy out: {round(a_out,3)}\n\nParámetros finales: {model_params}\n\nTiempo: {tiempo}\n\n\n')
         return a_in,a_out,model_params,model,tiempo
+    
     if classifier == "SVM":
         i = time.time()
         a_in,a_out,model_params,model = classifierSVM(x, y, size, params, accuracy_solicitado)
@@ -28,6 +30,7 @@ def useClassifier(classifier, x ,y ,size = 0.2, params=None, accuracy_solicitado
         tiempo = f-i
         print(f'\n\nAccuracy in: {round(a_in,3)}\n\nAccuracy out: {round(a_out,3)}\n\nParámetros finales: {model_params}\n\nTiempo: {tiempo}\n\n\n')
         return a_in,a_out,model,model_params,tiempo
+    
     if classifier == "LR":
         i = time.time()
         a_in,a_out,model_params,model = classifierLogisticRegression(x, y, size, params, accuracy_solicitado)
@@ -35,6 +38,7 @@ def useClassifier(classifier, x ,y ,size = 0.2, params=None, accuracy_solicitado
         tiempo = f-i
         print(f'\n\nAccuracy in: {round(a_in,3)}\n\nAccuracy out: {round(a_out,3)}\n\nParámetros finales: {model_params}\n\nTiempo: {tiempo}\n\n\n')
         return a_in,a_out,model,model_params,tiempo
+    
     if classifier == "KNN":
         i = time.time()
         a_in,a_out,model_params,model = classifierKNN(x, y, size, params, accuracy_solicitado)
