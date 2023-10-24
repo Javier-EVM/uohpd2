@@ -422,11 +422,8 @@ def loadMonks1():
 #x,y = loadData("Statlog") #pendiente
 #x,y = loadData("Banknote")
 
-<<<<<<< HEAD
-=======
 #x,y = loadData("Bank-marketing")
 #Pruebas de tamaño
->>>>>>> 91d1336ac5c3fa3639cceccb46672ef4982d25f5
 #print(x)
 #print(y)
 #print(len(y))
