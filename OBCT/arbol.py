@@ -29,3 +29,8 @@ def tree(d):
             A[i] = [[math.floor(i/2),i],[-1,-1],[-1,-1],[i,n_Nodos+1]]
 
     return(s, t, N, L, NUL, s_NUL, NUL_t, A)
+
+
+s, t, N, L, NUL, s_NUL, NUL_t, A = tree(3)
+
+print(A)
