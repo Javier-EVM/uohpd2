@@ -42,7 +42,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sklearn import tree
 feature_names = ['Pos x','Pos y']
-labels = ["1","0"]
+labels = ["0","1"]
 print(sum(y_train))
 print(len(y_train))
 print(x)
@@ -59,7 +59,7 @@ a = tree.plot_tree(clf,
                    #use the feature names stored
                    #feature_names = feature_names,
                    #use the class names stored
-                   class_names = True,
+                   class_names = labels,
                    rounded = True,
                    filled = True,
                    fontsize=10)
