@@ -47,12 +47,14 @@ def plotOBCT(b,w,alpha,d):
 
     #Crea el gráfico
     fig = go.Figure()
+    
     fig.add_trace(go.Scatter(
         x=Xe,
         y=Ye,
         mode='lines',
-        line=dict(color='rgb(210, 210, 210)', width=1),
-        hoverinfo='none'
+        line=dict(color='rgb(30, 30, 30)', width=1),
+        hoverinfo='none',
+        opacity=0.2
     ))
 
     fig.add_trace(go.Scatter(
@@ -62,13 +64,13 @@ def plotOBCT(b,w,alpha,d):
         name='Nodes',
         marker=dict(
             symbol='square-dot',
-            size=60,
-            color='#6175c1',
-            line=dict(color='rgb(50, 50, 50)', width=1),
+            size=80,
+            color='#1d25cc',
+            line=dict(color='rgb(150, 150, 250)', width=1),
         ),
         text=labels,
         hoverinfo='text',
-        opacity=0.2
+        opacity=0.1
     ))
 
     # Agrega etiquetas como anotaciones de texto Gracias chatgpt!
@@ -95,6 +97,12 @@ def plotOBCT(b,w,alpha,d):
             showarrow=False,
             font=dict(color='black', size=12)
         )
+    
+    fig.update_layout(
+    title=f"OBCT lambda {alpha} d {d}",
+    xaxis=dict(showgrid=False, showline=False, showticklabels=False),
+    yaxis=dict(showgrid=False, showline=False, showticklabels=False)
+    )
 
     plotly.offline.plot(fig, filename=f'OBCT/OBCT_tree_{alpha}_{d}.html')
     fig.show()
