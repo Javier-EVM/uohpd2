@@ -31,6 +31,6 @@ def tree(d):
     return(s, t, N, L, NUL, s_NUL, NUL_t, A)
 
 
-s, t, N, L, NUL, s_NUL, NUL_t, A = tree(3)
+#s, t, N, L, NUL, s_NUL, NUL_t, A = tree(3)
 
-print(A)
+#print(A)

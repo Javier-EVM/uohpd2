@@ -10,7 +10,7 @@ from sklearn.tree import DecisionTreeClassifier
 
 
 x,y = loadData("Monks1") 
-
+x,y = loadData("house-votes-84") 
 #x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
 
 x_train = x[0:100, :]
