@@ -4,27 +4,66 @@ import kaleido
 #https://plotly.com/python/tree-plots/
 
 #Define las coordenadas (x, y) para cada nodo del árbol
-def plotOBCT(b,w,alpha,d):
-    node_positions = {
-        1: (0, 0),
-        2: (-1, -1),
-        3: (1, -1),
-        4: (-1.5, -2),
-        5: (-0.5, -2),
-        6: (0.5, -2),
-        7: (1.5, -2),
-    }
+def plotOBCT(text,b,w,alpha,d):
+    if d == 3:
+        node_positions = {
+            1: (0, 0),
+            2: (-1, -1),
+            3: (1, -1),
+            4: (-1.5, -2),
+            5: (-0.5, -2),
+            6: (0.5, -2),
+            7: (1.5, -2),
+        }
 
 
-    #Define las aristas de un árbol binario
-    edges = [
-        (1, 2),
-        (1, 3),
-        (2, 4),
-        (2, 5),
-        (3, 6),
-        (3, 7)
-    ]
+        #Define las aristas de un árbol binario
+        edges = [
+            (1, 2),
+            (1, 3),
+            (2, 4),
+            (2, 5),
+            (3, 6),
+            (3, 7)
+        ]
+    elif d == 4:
+        node_positions = {
+            1: (0, 0),
+            2: (-1, -1),
+            3: (1, -1),
+            4: (-1.5, -2),
+            5: (-0.5, -2),
+            6: (0.5, -2),
+            7: (1.5, -2),
+            8: (-1.75, -3),
+            9: (-1.25, -3),
+            10: (-0.75, -3),
+            11: (-0.25, -3),
+            12: (0.25, -3),
+            13: (0.75, -3),
+            14: (1.25, -3),
+            15: (1.75, -3)
+        }
+
+
+        #Define las aristas de un árbol binario
+        
+        edges = [
+            (1, 2),
+            (1, 3),
+            (2, 4),
+            (2, 5),
+            (3, 6),
+            (3, 7),
+            (4, 8),
+            (4, 9),
+            (5, 10),
+            (5, 11),
+            (6, 12),
+            (6, 13),
+            (7, 14),
+            (7, 15)
+        ]
 
     #Obtén las coordenadas x, y de los nodos y aristas
     Xn = [pos[0] for pos in node_positions.values()]
@@ -99,7 +138,7 @@ def plotOBCT(b,w,alpha,d):
         )
     
     fig.update_layout(
-    title=f"OBCT lambda {alpha} d {d}",
+    title=f"OBCT {text} lambda {alpha} d {d}",
     xaxis=dict(showgrid=False, showline=False, showticklabels=False),
     yaxis=dict(showgrid=False, showline=False, showticklabels=False)
     )

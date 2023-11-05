@@ -7,7 +7,7 @@ from plotOBCT import plotOBCT
 #b : Nodos brancheo
 #w : Nodos clasificación
 
-d = 3
+d = 4
 alpha = 0
 x,y = loadData("house-votes-84") 
 
@@ -51,4 +51,4 @@ with open(f"Salida-OBCT.txt", 'w') as f:
     f.write('\n') 
 
 
-plotOBCT(b,w,alpha,d)
+plotOBCT("hola",b,w,alpha,d)

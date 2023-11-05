@@ -10,16 +10,18 @@ from sklearn.tree import DecisionTreeClassifier
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn import tree
+from MaxFlowOBCT import MFOBCT
 
-d = 3
+d = 4
 x,y = loadData("house-votes-84") 
 x,y = loadData("Monks1") 
-x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.4, random_state=42)
+
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
 
 lams = [0, 0.1, 0.5]
 for la in lams:
-    b, w, tiempo, gap = setMax4(x_train, y_train, d , la, 0)
-
+    #b, w, tiempo, gap = setMax4(x_train, y_train, d , la, 0)
+    tiempo, of , b , w , z, gap = MFOBCT(x_train, y_train ,d ,la , False, False, False)
     y_pred_train = predict(b, w, x_train, d)
     y_pred_test = predict(b, w, x_test, d)
 
@@ -30,13 +32,26 @@ for la in lams:
     print(f"Acc. In: {accuracy_in}")
     print(f"Acc. Out: {accuracy_out}")
     print(f"Tiempo: {tiempo} \n")
-    plotOBCT(b,w,la,d)
+    plotOBCT("",b,w,la,d)
 
+for la in lams:
+    b, w, tiempo, gap = setMax4(x_train, y_train, d , la, 0)
+    y_pred_train = predict(b, w, x_train, d)
+    y_pred_test = predict(b, w, x_test, d)
+
+    accuracy_in = accuracy_score(y_train, y_pred_train)
+    accuracy_out = accuracy_score(y_test, y_pred_test)
+
+    print(f"----OBCT Heuristica lambda {la} d {d}---- \n")
+    print(f"Acc. In: {accuracy_in}")
+    print(f"Acc. Out: {accuracy_out}")
+    print(f"Tiempo: {tiempo} \n")
+    plotOBCT("Heuristica",b,w,la,d)
 
 
 print(f"Sklearn d {d} \n")
 #SKlearn
-clf = DecisionTreeClassifier(max_depth =  2)
+clf = DecisionTreeClassifier(max_depth =  3)
 
 #Se entrena el clasificador
 clf.fit(x_train, y_train)
@@ -82,5 +97,5 @@ a = tree.plot_tree(clf,
 #SI ir izquierda
 #No ir derecha
 plt.show()
-plt.savefig("SKlearn_tree_3.png", dpi= 100)
+plt.savefig("SKlearn_tree_{d}.png", dpi= 100)
 
