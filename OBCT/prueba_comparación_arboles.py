@@ -12,8 +12,11 @@ import matplotlib.pyplot as plt
 from sklearn import tree
 
 d = 3
+
 x,y = loadData("house-votes-84") 
+
 x,y = loadData("Monks1") 
+
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.4, random_state=42)
 
 lams = [0, 0.1, 0.5]

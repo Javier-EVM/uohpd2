@@ -1,6 +1,6 @@
 import plotly
 import plotly.graph_objects as go
-import kaleido
+#import kaleido
 #https://plotly.com/python/tree-plots/
 
 #Define las coordenadas (x, y) para cada nodo del árbol
