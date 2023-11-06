@@ -1,0 +1,45 @@
+Final MIP gap value: 0.009112
+----OBCT lambda 0 d 4----
+
+Acc. In: 0.9909706546275395
+Acc. Out: 0.9819819819819819
+Tiempo: 100.06399989128113
+
+Final MIP gap value: 0.000000
+----OBCT lambda 0.1 d 4----
+
+Acc. In: 0.9909706546275395
+Acc. Out: 0.9819819819819819
+Tiempo: 78.625
+
+Final MIP gap value: 0.000000
+----OBCT lambda 0.5 d 4---- 
+
+Acc. In: 0.9909706546275395
+Acc. Out: 0.9819819819819819
+Tiempo: 52.42999982833862 
+
+----OBCT Heuristica lambda 0 d 4---- 
+
+Acc. In: 0.9909706546275395
+Acc. Out: 0.9819819819819819
+Tiempo: 25.89800000190735 
+
+Final MIP gap value: 0.000000
+----OBCT Heuristica lambda 0.1 d 4---- 
+
+Acc. In: 0.9661399548532731
+Acc. Out: 0.954954954954955
+Tiempo: 12.046000003814697
+
+Final MIP gap value: 0.000000
+----OBCT Heuristica lambda 0.5 d 4---- 
+
+Acc. In: 0.9661399548532731
+Acc. Out: 0.954954954954955
+Tiempo: 2.9119999408721924
+
+Sklearn d 4 
+
+Acc. In: 0.9909706546275395
+Acc. Out: 0.9819819819819819

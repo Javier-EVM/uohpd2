@@ -20,7 +20,7 @@ y_test = y[101:]
 
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
 
-clf = DecisionTreeClassifier(max_depth =  3)
+clf = DecisionTreeClassifier(max_depth =  3, max_leaf_nodes = None)
 
 #Se entrena el clasificador
 clf.fit(x_train, y_train)
@@ -70,5 +70,20 @@ a = tree.plot_tree(clf,
 #Representa cantidad de etiqueta con 0 y cantidad de etiqueta con 1
 #SI ir izquierda
 #No ir derecha
+# Obtener la estructura del árbol
+tree_structure = clf.tree_
+
+# Recorrer los nodos del árbol
+for node_id in range(tree_structure.node_count):
+    if tree_structure.children_left[node_id] == tree_structure.children_right[node_id]:
+        # Este es un nodo hoja (nodo de clasificación)
+        class_label = np.argmax(clf.tree_.value[node_id])
+        value = clf.tree_.value[node_id]
+        print(f"Nodo {node_id + 1}: clase {class_label}")
+    else:
+        # Este es un nodo de decisión
+        feature = tree_structure.feature[node_id]
+        print(f"nodo {node_id + 1} feature {feature}")
+
 plt.show()
 plt.savefig("Salida-arbol.png", dpi= 100)
