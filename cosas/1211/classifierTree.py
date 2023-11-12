@@ -9,7 +9,7 @@ def classifierTree(x,y,size,params):
     X_train, X_test, y_train, y_test = train_test_split(x, y, test_size=size, random_state=42)
     if params == None:
         #Se instancia el clasificador
-        clf = DecisionTreeClassifier(max_depth =  3)
+        clf = DecisionTreeClassifier()
 
         #Se entrena el clasificador
         clf.fit(X_train, y_train)
@@ -30,7 +30,7 @@ def classifierTree(x,y,size,params):
         param_dist = {
             'criterion': ['gini', 'entropy'],  # Tipo de criterio
             'splitter': ['best', 'random'],    # Estrategia de división
-            'max_depth': np.arange(1, 6),    # Profundidad máxima del árbol
+            'max_depth': np.arange(1, 11),    # Profundidad máxima del árbol
             'min_samples_split': np.arange(2, 11),  # Mínimo de muestras para dividir un nodo
             'min_samples_leaf': np.arange(1, 11)  # Mínimo de muestras en una hoja
             #'ccp_alpha': list(np.linspace(0.0, 0.2, 100))

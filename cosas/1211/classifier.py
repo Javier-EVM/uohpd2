@@ -6,6 +6,8 @@ from classifierLR import classifierLogisticRegression
 from classifierKNN import classifierKNN
 import time
 
+
+
 def useClassifier(classifier, x ,y ,size = 0.2, params=None, accuracy_solicitado=0.9):
     if classifier == "Arbol":
         i = time.time()
