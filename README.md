@@ -1,4 +1,4 @@
-# Implementación de Clasificadores Binarios y Busqueda de Hiperparametros
+# Implementación de Clasificadores Binarios y Busqueda de Hiperparametros - Proyecto de Datos II, Universidad de O'Higgins
 
 El siguiente proyecto es sobre la implementación de multiples Clasificadores Binarios de Machine Learning para variados Dataset populares.
 Adicionalmente esta incorporada la busqueda de hiperparametros, con el objetivo de optimizar el aprendizaje sobre el conjunto de entrenamiento.
