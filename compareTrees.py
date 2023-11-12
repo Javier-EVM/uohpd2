@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 from sklearn import tree
 from MaxFlowOBCT import MFOBCT
 
-d = 4
+d = 3
 x,y = loadData("house-votes-84") 
 x,y = loadData("Monks1") 
 
@@ -32,7 +32,7 @@ for la in lams:
     print(f"Acc. In: {accuracy_in}")
     print(f"Acc. Out: {accuracy_out}")
     print(f"Tiempo: {tiempo} \n")
-    plotOBCT("",b,w,la,d)
+    plotOBCT("",b,w,la,d,accuracy_in,accuracy_out)
 
 for la in lams:
     b, w, tiempo, gap = setMax4(x_train, y_train, d , la, 0)
@@ -46,12 +46,12 @@ for la in lams:
     print(f"Acc. In: {accuracy_in}")
     print(f"Acc. Out: {accuracy_out}")
     print(f"Tiempo: {tiempo} \n")
-    plotOBCT("Heuristica",b,w,la,d)
+    plotOBCT("Heuristica",b,w,la,d,accuracy_in,accuracy_out)
 
 
 print(f"Sklearn d {d} \n")
 #SKlearn
-clf = DecisionTreeClassifier(max_depth =  3)
+clf = DecisionTreeClassifier(max_depth =  2)
 
 #Se entrena el clasificador
 clf.fit(x_train, y_train)
@@ -96,6 +96,9 @@ a = tree.plot_tree(clf,
 #Representa cantidad de etiqueta con 0 y cantidad de etiqueta con 1
 #SI ir izquierda
 #No ir derecha
-plt.show()
+plt.title(f"SKlearn depth = {d}", fontsize=16)
+plt.text(0.5, 0.010, f"Acc. In.: {accuracy_in:.1%}  Acc. Out.: {accuracy_out:.1%}", ha="center", fontsize=12, color="black")
 plt.savefig("SKlearn_tree_{d}.png", dpi= 100)
+plt.show()
+
 

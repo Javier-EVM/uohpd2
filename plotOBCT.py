@@ -1,10 +1,10 @@
 import plotly
 import plotly.graph_objects as go
-import kaleido
+#import kaleido
 #https://plotly.com/python/tree-plots/
 
 #Define las coordenadas (x, y) para cada nodo del árbol
-def plotOBCT(text,b,w,alpha,d):
+def plotOBCT(text,b,w,alpha,d,ai,ao):
     if d == 3:
         node_positions = {
             1: (0, 0),
@@ -103,7 +103,7 @@ def plotOBCT(text,b,w,alpha,d):
         name='Nodes',
         marker=dict(
             symbol='square-dot',
-            size=80,
+            size=90,
             color='#1d25cc',
             line=dict(color='rgb(150, 150, 250)', width=1),
         ),
@@ -134,16 +134,28 @@ def plotOBCT(text,b,w,alpha,d):
             y=Yn[i],
             text=label,
             showarrow=False,
-            font=dict(color='black', size=12)
+            font=dict(color='black', size=16)
         )
-    
+    # Calcula las coordenadas del punto donde deseas imprimir el número
+    center_x = 0  # Coordenada x del centro
+    center_y = -3  # Coordenada y abajo del centro
+
+    # Agrega una anotación con el número en las coordenadas calculadas
+    fig.add_annotation(
+        x=center_x,
+        y=center_y,
+        text=f"Acc. In.: {ai:.1%}  Acc. Out.: {ao:.1%}",  # Reemplaza "5" con el número que deseas imprimir
+        showarrow=False,
+        font=dict(color='black', size=20)
+    )
     fig.update_layout(
-    title=f"OBCT {text} lambda {alpha} d {d}",
+    title=f"OBCT {text} lambda = {alpha} depth = {d}",
+    font=dict(color='black', size=18),
     xaxis=dict(showgrid=False, showline=False, showticklabels=False),
     yaxis=dict(showgrid=False, showline=False, showticklabels=False)
     )
 
-    plotly.offline.plot(fig, filename=f'OBCT/OBCT_tree_{alpha}_{d}.html')
+    plotly.offline.plot(fig, filename=f'OBCT/OBCT_{text}_tree_{alpha}_{d}.html')
     fig.show()
 
 
