@@ -13,7 +13,6 @@ from sklearn import tree
 from MaxFlowOBCT import MFOBCT
 
 d = 3
-x,y = loadData("house-votes-84") 
 x,y = loadData("Monks1") 
 
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)

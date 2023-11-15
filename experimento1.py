@@ -1,4 +1,4 @@
-from dataset import loadData
+from dataset2 import loadData
 from classifierTree import classifierTree
 from classifierNN import classifierNeuralNetwork
 from classifierSVM import classifierSVM
@@ -14,6 +14,7 @@ datasets_names = ['house-votes-84', 'spambase', "Monks1", "Monks3", "Monks3", "C
 
 
 def prueba(clf, repeticiones, names):
+    noOBCT = ["Adult","Musk-2"]
     title = [["Dataset",f"{clf}"," "," "," ", " ", " "],[" ","Acc. In %", " ", "Acc. Out %", "", "T (s)", ""],[" ","HD", "BA", "HD", "BA", "HD", "BA" ]]
     for i,name in enumerate(names):
         print(name)
@@ -24,25 +25,44 @@ def prueba(clf, repeticiones, names):
         T_std = 0
         T_ba = 0
         for p in range(repeticiones):
-            x,y = loadData(name) 
-            a_in,a_out,_,_,t = useClassifier(clf,x,y, params = None)
-            A_in_std += a_in
-            A_out_std += a_out
-            T_std += t
+            if clf == "OBCT":
+                x,y = loadData(name, True) 
+            else:
+                x,y = loadData(name) 
+            
+            if ((name in noOBCT) and clf == "OBCT"):
+                a_in,a_out,_,_,t = 0,0,0,0,0
+                A_in_std += a_in
+                A_out_std += a_out
+                T_std += t
+                 
+
+            else:
+                a_in,a_out,_,_,t = useClassifier(clf,x,y, params = None)
+                A_in_std += a_in
+                A_out_std += a_out
+                T_std += t
+            
 
             #Adult no termina en SVM BA
             if (name == "Adult" and clf == "SVM"):
-                a_in,a_out,_,_,t = 0,0
+                a_in,a_out,_,_,t = 0,0,0,0,0
+                A_in_ba += 0
+                A_out_ba += 0
+                T_ba += 0
+
+            if ((name in noOBCT) and clf == "OBCT"):
+                a_in,a_out,_,_,t = 0,0,0,0,0
                 A_in_ba += 0
                 A_out_ba += 0
                 T_ba += 0
                  
 
-            #else:
-            a_in,a_out,_,_,t = useClassifier(clf,x,y, params = "param_defecto")
-            A_in_ba += a_in
-            A_out_ba += a_out
-            T_ba += t
+            else:
+                a_in,a_out,_,_,t = useClassifier(clf,x,y, params = "param_defecto")
+                A_in_ba += a_in
+                A_out_ba += a_out
+                T_ba += t
         
         A_in_std = 100*A_in_std/repeticiones
         A_in_ba = 100*A_in_ba/repeticiones
@@ -59,6 +79,7 @@ def prueba(clf, repeticiones, names):
         
 
 
+"""
 prueba("Arbol", 3, ['house-votes-84', 'spambase', "Monks1", "Monks2", "Monks3", "Credit-approval"
                   ,"Ionosphere", "Adult", "Musk-2", "Connectionist-bench", "Breast-cancer", "Pima-diabetes",
                   "Statlog", "Banknote", "Bank-marketing"])
@@ -77,3 +98,11 @@ prueba("SVM", 3, ['house-votes-84', 'spambase', "Monks1", "Monks2", "Monks3", "C
 prueba("NN", 3, ['house-votes-84', 'spambase', "Monks1", "Monks2", "Monks3", "Credit-approval"
                   ,"Ionosphere", "Adult", "Musk-2", "Connectionist-bench", "Breast-cancer", "Pima-diabetes",
                   "Statlog", "Banknote", "Bank-marketing"])
+
+"""
+
+prueba("OBCT", 3, ['house-votes-84', 'spambase', "Monks1", "Monks2", "Monks3", "Credit-approval"
+                  ,"Ionosphere", "Adult", "Musk-2", "Connectionist-bench", "Breast-cancer", "Pima-diabetes",
+                  "Statlog", "Banknote", "Bank-marketing"])
+
+

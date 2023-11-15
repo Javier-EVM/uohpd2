@@ -4,9 +4,18 @@ from classifierNN import classifierNeuralNetwork
 from classifierSVM import classifierSVM
 from classifierLR import classifierLogisticRegression
 from classifierKNN import classifierKNN
+from classifierOBCT import classifierOBCT
 import time
 
 def useClassifier(classifier, x ,y ,size = 0.2, params=None, accuracy_solicitado=0.9):
+    if classifier == "OBCT":
+        i = time.time()
+        a_in,a_out,model,model_params = classifierOBCT(x,y,size,params)
+        f = time.time()
+        tiempo = f-i
+        print(f'\n\nAccuracy in: {round(a_in,3)}\n\nAccuracy out: {round(a_out,3)}\n\nParámetros finales: {model_params}\n\nTiempo: {tiempo}\n\n\n')
+        return a_in,a_out,model_params,model,tiempo
+        
     if classifier == "Arbol":
         i = time.time()
         a_in,a_out,model,model_params = classifierTree(x,y,size,params)

@@ -97,7 +97,7 @@ def MFOBCT(x_train, y_train,d ,lambda_ ,rb = False, rw = False, Relaxed = False 
 
     model.addConstrs( z[i,n,t] <= w[n,k] for i in I for n in NUL for k in K if (int(y_train[i]) == k)) #1.9
 
-    model.setParam('TimeLimit', 100)
+    model.setParam('TimeLimit', 20)
     model.optimize()
     
     obj = model.getObjective()
